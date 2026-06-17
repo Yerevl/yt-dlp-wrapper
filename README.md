@@ -10,7 +10,7 @@ A modern, elegant desktop application built in Python using Tkinter, providing a
 
 ## 📸 Application Screenshot
 
-![yt-dlp Downloader Interface](images/app_screenshot.jpg)
+![yt-dlp Downloader Interface](images/app_screenshot.png)
 
 ---
 
