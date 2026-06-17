@@ -25,6 +25,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller
 
+      - name: Install FFmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
+
+      - name: Download yt-dlp.exe and Copy FFmpeg binaries
+        shell: pwsh
+        run: |
+          # Download official yt-dlp.exe
+          Invoke-WebRequest -Uri "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe" -OutFile "yt-dlp.exe"
+
+          # Locate and copy ffmpeg.exe and ffprobe.exe
+          $ffmpeg_path = (Get-Command ffmpeg).Source
+          $ffprobe_path = (Get-Command ffprobe).Source
+          Copy-Item $ffmpeg_path -Destination .
+          Copy-Item $ffprobe_path -Destination .
+
+          # Verify files exist in root
+          Test-Path yt-dlp.exe
+          Test-Path ffmpeg.exe
+          Test-Path ffprobe.exe
+
       - name: Build Standalone Executable
         run: |
           pyinstaller downloader.spec
